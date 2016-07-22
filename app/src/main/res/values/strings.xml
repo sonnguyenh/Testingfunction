@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TestCircleReveal</string>
+    <string name="fragment_image_trans">image_transaction</string>
 </resources>
