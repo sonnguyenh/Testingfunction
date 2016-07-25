@@ -24,6 +24,7 @@ import com.test.sonnguyenh.testcirclereveal.adapter.ListAdapter;
 import com.test.sonnguyenh.testcirclereveal.fragment.FragmentDetail;
 import com.test.sonnguyenh.testcirclereveal.model.ListData;
 import com.test.sonnguyenh.testcirclereveal.model.onAdapterclick;
+import com.test.sonnguyenh.testcirclereveal.util.CircularFragReveal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,6 +59,7 @@ public class FragmentSecond extends Fragment implements onAdapterclick {
         View rootView = inflater.inflate(R.layout.fragment_two, container, false);
         ButterKnife.bind(this, rootView);
         rootView.setBackgroundColor(getArguments().getInt("color"));
+        testCircular(rootView, getArguments().getInt("cx"), getArguments().getInt("cy"));
         rootView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -154,7 +156,7 @@ public class FragmentSecond extends Fragment implements onAdapterclick {
     }
 
     @Override
-    public void onItemClick(ListData listData,View v) {
+    public void onItemClick(ListData listData, View v) {
         FragmentDetail fragment = new FragmentDetail();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            setSharedElementReturnTransition(TransitionInflater.from(
@@ -169,13 +171,42 @@ public class FragmentSecond extends Fragment implements onAdapterclick {
                     getActivity()).inflateTransition(android.R.transition.move));
         }
         Bundle bundle = new Bundle();
-        bundle.putSerializable("data",listData);
+        bundle.putSerializable("data", listData);
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+                .add(R.id.container, fragment)
+                .hide(this)
                 .addToBackStack("fragment_second")
                 .addSharedElement(v, getString(R.string.fragment_image_trans))
                 .commit();
+    }
+
+    private void testCircular(View rootView, int x, int y) {
+        CircularFragReveal.Builder builder = new CircularFragReveal.Builder(rootView);
+        builder.setRevealColor(getArguments().getInt("color"));
+        builder.setRevealTime(1000);
+        CircularFragReveal circularFragReveal = builder.build();
+        circularFragReveal.startReveal(x, y, new CircularFragReveal.OnCircularReveal() {
+            @Override
+            public void onFragCircRevealStart() {
+
+            }
+
+            @Override
+            public void onFragCircRevealEnded() {
+
+            }
+
+            @Override
+            public void onFragCircUnRevealStart() {
+
+            }
+
+            @Override
+            public void onFragCircUnRevealEnded() {
+
+            }
+        });
     }
 }

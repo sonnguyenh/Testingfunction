@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.test.sonnguyenh.testcirclereveal.util.CircularFragReveal;
+
 public class MainActivity extends AppCompatActivity implements OnFragmentTouched {
     FloatingActionButton fab;
 
