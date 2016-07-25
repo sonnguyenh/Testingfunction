@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.ChangeBounds;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -156,14 +157,16 @@ public class FragmentSecond extends Fragment implements onAdapterclick {
     public void onItemClick(ListData listData,View v) {
         FragmentDetail fragment = new FragmentDetail();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementReturnTransition(TransitionInflater.from(
-                    getActivity()).inflateTransition(R.transition.change_image_trans));
+//            setSharedElementReturnTransition(TransitionInflater.from(
+//                    getActivity()).inflateTransition(R.transition.change_image_trans));
 //            setExitTransition(TransitionInflater.from(
-//                    getActivity()).inflateTransition(android.R.transition.fade));
+//                    getActivity()).inflateTransition(android.R.transition.move));
+
+//            ChangeBounds changeBoundsTransition = TransitionInflater.from(getContext()).inflateTransition(R.transition.change_image_trans);
             fragment.setSharedElementEnterTransition(TransitionInflater.from(
                     getActivity()).inflateTransition(R.transition.change_image_trans));
-//            fragment.setEnterTransition(TransitionInflater.from(
-//                    getActivity()).inflateTransition(android.R.transition.fade));
+            fragment.setEnterTransition(TransitionInflater.from(
+                    getActivity()).inflateTransition(android.R.transition.move));
         }
         Bundle bundle = new Bundle();
         bundle.putSerializable("data",listData);
